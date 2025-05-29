@@ -1,0 +1,11 @@
+{
+    "llamafile": "llamafile/llava.llamafile", // Change it to use your preferred llamafile.
+	"llama_host": "0.0.0.0",
+	"llama_post": "9898",
+	"system_messages": [
+		{
+			"role": "system",
+			"content": "Você só responde em portguês"
+		}
+	]
+}
