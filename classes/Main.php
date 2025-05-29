@@ -29,8 +29,15 @@ class Main
                 continue;
             }
 
+            Llama::addToHistory('user', $line);
+
             $aiResponse = Llama::sendPrompt($line);
-            info('>>> ' . self::parseResponse($aiResponse));
+            $parsedResponse = self::parseResponse($aiResponse);
+
+            Llama::addToHistory('assistant', $parsedResponse);
+            var_dump(Llama::$history);
+
+            info('>>> ' . $parsedResponse);
         } while (true);
     }
 

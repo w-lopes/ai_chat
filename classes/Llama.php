@@ -4,6 +4,8 @@ namespace classes;
 
 class Llama
 {
+    public static $history = [];
+
     public static function fileExists(): bool
     {
         return file_exists(Config::get('llamafile'));
@@ -28,12 +30,7 @@ class Llama
             'messages' => array_merge(
                 self::getDynamicSystemPrompt(),
                 Config::get('system_messages'),
-                [
-                    [
-                        'role' => 'user',
-                        'content' => $prompt,
-                    ],
-                ],
+                self::$history,
             ),
             'response_format' => [
                 'type' => 'json_object',
@@ -53,7 +50,7 @@ class Llama
         $response = curl_exec($ch);
 
         if (curl_errno($ch)) {
-            error('Erro cURL: ' . curl_error($ch));
+            error('Error cURL: ' . curl_error($ch));
         }
 
         curl_close($ch);
@@ -66,6 +63,16 @@ class Llama
                 ], '', json_decode($response)->choices[0]->message->content
             )
         ), true);
+    }
+
+    public static function addToHistory(string $role, string $content): void
+    {
+        self::$history[] = [
+            'role' => $role,
+            'content' => $content,
+        ];
+        $n = Config::get('max_history', 500);
+        self::$history = array_slice(self::$history, -$n, $n);
     }
 
     private static function getDynamicSystemPrompt(): array

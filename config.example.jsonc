@@ -1,7 +1,8 @@
 {
     "llamafile": "llamafile/llava.llamafile", // Change it to use your preferred llamafile.
-	"llama_host": "0.0.0.0",
-	"llama_post": "9898",
+	"llama_host": "127.0.0.1",
+	"llama_port": "9898",
+	"max_history": 500,
 	"system_messages": [
 		{
 			"role": "system",

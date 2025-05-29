@@ -87,8 +87,7 @@ print('hello world')
 In the snippet above we can se a normal AI response and also a custom command returning the system username.
 
 ## TODO
-- Save chat history for AI context
 - Add more default commands
-- Add a custom path that will be git ignored
+- Add a custom path that will be git ignored for user commands
 - Change how it is handling llamafile to allow it to connect to other APIs too
 - Voice commands one day? :eyes:
